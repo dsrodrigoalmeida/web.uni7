@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"> 
+<h:head>
+    <title>
+        <h:outputText value="#{msg['page.usuariosEditar.title']}" />
+    </title>
+</h:head>
+<h:body>
+  <h:form id="usuarioForm">
+    <h:inputHidden value="#{usuarioBean.usuario.id}" />
+    <h:panelGrid columns="3">
+    
+      <h:outputLabel for="idInput" value="#{msg['page.usuarios.label.id']}:" />
+      <h:inputText id="idInput" value="#{usuarioBean.usuario.id}" 
+        disabled="true" />
+      <h:panelGroup />
+
+      <h:outputLabel for="cpfInput" value="#{msg['page.usuarios.label.cpf']}:"/>
+      <h:inputText id="cpfInput" value="#{usuarioBean.usuario.cpf}">
+      	<f:validateRequired />
+        <f:converter converterId="converters.CpfConverter" />
+        <f:validator validatorId="validators.CpfValidator" />
+      </h:inputText>
+      <h:message for="cpfInput" />
+
+      <h:outputLabel for="nomeReduzidoInput"
+        value="#{msg['page.usuarios.label.nomeReduzido']}:" />
+      <h:inputText id="nomeReduzidoInput"
+        value="#{usuarioBean.usuario.nomeReduzido}" required="true">
+        <f:validateLength minimum="5" />
+      </h:inputText>
+      <h:message for="nomeReduzidoInput" />
+
+      <h:outputLabel for="nomeCompletoInput"
+        value="#{msg['page.usuarios.label.nomeCompleto']}:" />
+      <h:inputTextarea id="nomeCompletoInput"
+        value="#{usuarioBean.usuario.nomeCompleto}" rows="5" cols="20"/>
+      <h:message for="nomeCompletoInput" />
+
+      <h:outputLabel for="emailInput" 
+        value="#{msg['page.usuarios.label.email']}:" />
+      <h:inputText id="emailInput" value="#{usuarioBean.usuario.email}" />
+      <h:message for="emailInput" />
+
+      <h:outputLabel for="dataNascimentoInput"
+      	value="#{msg['page.usuarios.label.dataNascimento']}:" />
+      <h:inputText id="dataNascimentoInput"
+          value="#{usuarioBean.usuario.dataNascimento}">
+          <f:convertDateTime pattern="dd/MM/yyyy"/>
+      </h:inputText>
+      <h:message for="dataNascimentoInput" />
+
+      <h:outputLabel for="senhaInput" 
+        value="#{msg['page.usuarios.label.senha']}:" />
+      <h:inputText id="senhaInput" 
+        value="#{usuarioBean.usuario.senha}"
+        required="true">
+        <f:validateLength minimum="6" maximum="10"/>
+      </h:inputText>
+      <h:message for="senhaInput" />
+      
+      <h:outputLabel for="cepInput" value="#{msg['page.usuarios.label.cep']}:"/>
+      <h:inputText id="cepInput" value="#{usuarioBean.usuario.cep}">
+      	<f:validateRequired />
+        <f:converter converterId="converters.CepConverter" />
+        <f:validator validatorId="validators.CepValidator" />
+      </h:inputText>
+      <h:message for="cepInput" />
+    </h:panelGrid>
+    <hr/>
+    <h:commandButton action="#{usuarioBean.salvar}" 
+      value="#{msg['commons.salvar']}" />
+    <h:commandButton action="usuarios?faces-redirect=true"
+      value="#{msg['commons.voltar']}"
+      immediate="true" />
+  </h:form>
+</h:body>
+</html>

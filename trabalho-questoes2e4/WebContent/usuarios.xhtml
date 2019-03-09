@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+    
+<h:head>
+    <title>
+        <h:outputText value="#{msg['page.usuarios.title']}" />
+    </title>
+</h:head>
+
+<h:body>
+<h:form>
+  <h:dataTable value="#{usuarioBean.listaUsuarios}" var="usuario"
+    border="1" cellspacing="0" cellpadding="2">
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg['page.usuarios.label.cpf']}" />
+      </f:facet>
+      <h:commandLink action="usuariosEditar">
+        <h:outputText value="#{usuario.cpf}"
+          converter="converters.CpfConverter" />
+        <f:setPropertyActionListener 
+           target="#{usuarioBean.usuario}"
+           value="#{usuario}"/>
+      </h:commandLink>
+    </h:column>
+    <h:column>
+      <f:facet name="header">
+        <h:outputText
+          value="#{msg['page.usuarios.label.nomeReduzido']}" />
+      </f:facet>
+      <h:outputText value="#{usuario.nomeReduzido}" />
+    </h:column>
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg['page.usuarios.label.email']}" />
+      </f:facet>
+      <h:outputLink value="mailto:#{usuario.email}">
+        <h:outputText value="#{usuario.email}" />
+      </h:outputLink>
+    </h:column>
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg['page.usuarios.label.dataNascimento']}" />
+      </f:facet>
+      <h:outputText value="#{usuario.dataNascimento}">
+        <f:convertDateTime pattern="dd/MM/yyyy" />
+      </h:outputText>
+    </h:column>
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg['page.usuarios.label.cep']}" />
+      </f:facet>
+        <h:outputText value="#{usuario.cep}"
+          converter="converters.CepConverter" />
+    </h:column>
+    <h:column>
+      <f:facet name="header">
+        <h:outputText value="#{msg['commons.excluir']}" />
+      </f:facet>
+      <h:commandButton action="#{usuarioBean.excluir}"
+        value="#{msg['commons.excluir']}">
+          <f:setPropertyActionListener 
+            target="#{usuarioBean.usuario}"
+            value="#{usuario}" />
+      </h:commandButton>
+    </h:column>
+    <h:column>
+        <f:facet name="header">
+            <h:outputText value="#{msg['commons.exibir']}" />
+        </f:facet>
+        <h:button outcome="usuariosExibir"
+            value="#{msg['commons.exibir']}">
+            <f:param name="id" value="#{usuario.id}" />
+        </h:button>
+    </h:column>
+  </h:dataTable>
+  <hr/>
+  <h:commandButton action="#{usuarioBean.novo}" value="#{msg['commons.novo']}" />
+  <h:commandButton action="index" value="#{msg['commons.voltar']}" />
+</h:form>
+</h:body>
+</html>

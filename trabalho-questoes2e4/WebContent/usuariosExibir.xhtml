@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title><h:outputText value="#{msg['page.usuarios.title']}" /></title>
+</h:head>
+<h:body>
+    <f:metadata>
+        <f:viewParam name="id" value="#{usuarioBean.usuario.id}" />
+        <f:event type="preRenderView" listener="#{usuarioBean.exibir}" />
+    </f:metadata>
+
+    <h:panelGrid columns="2">
+        <h:outputText value="#{msg['page.usuarios.label.id']}:" />
+        <h:outputText value="#{usuarioBean.usuario.id}" />
+
+        <h:outputText value="#{msg['page.usuarios.label.cpf']}:" />
+        <h:outputText value="#{usuarioBean.usuario.cpf}">
+            <f:converter converterId="converters.CpfConverter" />
+        </h:outputText>
+        <h:outputText value="#{msg['page.usuarios.label.nomeReduzido']}:" />
+        <h:outputText value="#{usuarioBean.usuario.nomeReduzido}" />
+
+        <h:outputText value="#{msg['page.usuarios.label.nomeCompleto']}:" />
+        <h:outputText value="#{usuarioBean.usuario.nomeCompleto}" />
+
+        <h:outputText value="#{msg['page.usuarios.label.email']}:" />
+        <h:outputText value="#{usuarioBean.usuario.email}" />
+
+        <h:outputText value="#{msg['page.usuarios.label.dataNascimento']}:" />
+        <h:outputText value="#{usuarioBean.usuario.dataNascimento}">
+            <f:convertDateTime pattern="dd/MM/yyyy" />
+        </h:outputText>
+        
+        <h:outputText value="#{msg['page.usuarios.label.cep']}:" />
+        <h:outputText value="#{usuarioBean.usuario.cep}">
+            <f:converter converterId="converters.CepConverter" />
+        </h:outputText>
+    </h:panelGrid>
+    <hr />
+    <h:button outcome="usuarios" value="#{msg['commons.voltar']}" />
+</h:body>
+</html>
